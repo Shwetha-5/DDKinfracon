@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 export function Header() {
@@ -32,13 +33,14 @@ export function Header() {
       )}
     >
       <Link href="#" className="flex items-center gap-2.5 font-bebas text-2xl z-50">
-        <div className="relative w-8 h-8 flex-shrink-0">
-          <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-            <polygon points="18,2 34,18 18,34 2,18" fill="#00AEEF" fillOpacity=".15" stroke="#00AEEF" strokeWidth="1.5"/>
-            <polygon points="18,6 30,18 18,30 6,18" fill="#00AEEF" fillOpacity=".3"/>
-            <line x1="10" y1="18" x2="26" y2="18" stroke="#F4A020" strokeWidth="2.5" strokeLinecap="round"/>
-            <line x1="18" y1="10" x2="18" y2="26" stroke="#F4A020" strokeWidth="2.5" strokeLinecap="round"/>
-          </svg>
+        <div className="relative w-10 h-10 flex-shrink-0 rounded-md overflow-hidden">
+          <Image
+            src="/logo.png"
+            alt="DDK Infracon Logo"
+            fill
+            className="object-contain"
+            priority
+          />
         </div>
         <span>
           DDK <span className="text-ddk-blue">INFRACON</span>

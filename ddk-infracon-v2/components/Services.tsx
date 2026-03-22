@@ -44,7 +44,7 @@ const SERVICES_DATA = [
   {
     title: "Architectural Design",
     desc: "Innovative design services that blend aesthetics with functional engineering excellence.",
-    img: TAJ_GARDENS,
+    img: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80", // architect drawing on paper — verified ✅
     icon: <svg viewBox="0 0 24 24"><line x1="2" y1="20" x2="22" y2="20" /><path d="M5 20V8l7-5 7 5v12" /><path d="M9 20v-5h6v5" /></svg>,
   },
 ];

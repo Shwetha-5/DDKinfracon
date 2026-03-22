@@ -4,11 +4,17 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "DDK Infracon | India's Premier Builder | Bhubaneswar, Odisha",
   description: "DDK Infracon Pvt. Ltd. — 120+ residential buildings delivered across Bhubaneswar. 10+ years. ISO Certified. RERA Approved. IGBC Gold Certified.",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+    shortcut: "/logo.png",
+  },
   openGraph: {
     title: "DDK Infracon | India's Premier Builder",
     description: "120+ residential buildings delivered across Bhubaneswar. Premium construction excellence since 2014.",
     type: "website",
-  }
+    images: ["/logo.png"],
+  },
 };
 
 export default function RootLayout({

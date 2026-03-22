@@ -10,11 +10,11 @@ export function Hero() {
       className="relative w-full flex items-center overflow-hidden"
       style={{ height: "100svh", minHeight: "560px" }}
     >
-      {/* Background — Taj Hotel Puri, verified aerial exterior (TripAdvisor CDN) */}
+      {/* Background — Indian city high-rise skyline, browser-verified Unsplash ✅ */}
       <div
         className="absolute inset-0 w-full h-full"
         style={{
-          backgroundImage: `url('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2e/96/46/fe/taj-puri-resort-spa-offers.jpg?w=1920&h=-1&s=1')`,
+          backgroundImage: `url('https://images.unsplash.com/photo-1636810163038-5d8d8996c561?auto=format&fit=crop&w=1920&q=85')`,
           backgroundSize: "cover",
           backgroundPosition: "center center",
         }}
