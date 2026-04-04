@@ -1,46 +1,41 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
-
-// ONLY browser-verified thumbnail images used here.
-// photo-1503387762... = architect drawing blueprint ✅
-// photo-1504307651... = construction workers with rebars ✅
-// photo-1719993919... = Indian active construction site ✅
-// photo-1663985139... = Indian apartment building ✅
-// TAJ_LOBBY = real Taj Hotel Puri lobby ✅
+import { IMG, TAJ, unsplashUrl, sanityUrl } from "@/lib/images";
 
 const STEPS = [
   {
     num: "01",
     title: "Consultation & Planning",
     desc: "Understanding your vision, budget, and project requirements thoroughly.",
-    thumb: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=160&q=80", // architect drawing blueprint ✅
+    thumb: unsplashUrl(IMG.architectBlueprint, { w: 160 }),
   },
   {
     num: "02",
     title: "Architectural Design",
     desc: "Creating detailed blueprints and 3D visualizations of your project.",
-    thumb: "https://images.unsplash.com/photo-1663985139222-6af2f8646104?auto=format&fit=crop&w=160&q=80", // Indian apartment building ✅
+    thumb: unsplashUrl(IMG.apartment, { w: 160 }),
   },
   {
     num: "03",
     title: "Construction Execution",
     desc: "Building with precision using premium quality materials and methods.",
-    thumb: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=160&q=80", // construction workers with rebars ✅
+    thumb: unsplashUrl(IMG.steelRebars, { w: 160 }),
   },
   {
     num: "04",
     title: "Quality Control",
     desc: "Rigorous testing and inspection at every stage of construction.",
-    thumb: "https://images.unsplash.com/photo-1719993919800-630021837af9?auto=format&fit=crop&w=160&q=80", // Indian active construction site ✅
+    thumb: unsplashUrl(IMG.constructionSite, { w: 160 }),
   },
   {
     num: "05",
     title: "Delivery & Handover",
     desc: "Final walkthrough, documentation, and seamless possession process.",
-    thumb: "https://cdn.sanity.io/images/ocl5w36p/prod5/6ca9892a37d63ea368fbfa6506286e37164edcf7-3840x1860.jpg?w=160&auto=format&q=80", // Real Taj Puri lobby/handover ✅
+    thumb: sanityUrl(TAJ.interiors, { w: 160 }),
   },
-];
+] as const;
 
 export function Process() {
   return (
@@ -75,7 +70,7 @@ export function Process() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-6">
             {STEPS.map((step, i) => (
               <motion.div
-                key={i}
+                key={step.num}
                 className="relative flex flex-row lg:flex-col items-start lg:items-center text-left lg:text-center gap-5 lg:gap-0 group"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -88,9 +83,15 @@ export function Process() {
                 )}
 
                 <div className="flex flex-col items-center flex-shrink-0 z-10 lg:mb-8">
-                  <div className="w-[80px] h-[80px] md:w-[88px] md:h-[88px] rounded-full overflow-hidden border-4 border-ddk-charcoal shadow-xl group-hover:border-ddk-blue transition-colors duration-300 flex-shrink-0">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={step.thumb} alt={step.title} className="w-full h-full object-cover" loading="lazy" />
+                  <div className="w-[80px] h-[80px] md:w-[88px] md:h-[88px] rounded-full overflow-hidden border-4 border-ddk-charcoal shadow-xl group-hover:border-ddk-blue transition-colors duration-300 flex-shrink-0 relative">
+                    <Image
+                      src={step.thumb}
+                      alt={step.title}
+                      fill
+                      className="object-cover"
+                      loading="lazy"
+                      sizes="88px"
+                    />
                   </div>
                   <div
                     className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-ddk-blue text-black font-bold font-mono text-[0.65rem] md:text-xs flex items-center justify-center -mt-4 border-[3px] border-ddk-black relative z-20"
@@ -104,7 +105,9 @@ export function Process() {
                   <h4 className="font-bebas text-xl md:text-2xl tracking-wide mb-1.5 text-white group-hover:text-ddk-blue transition-colors">
                     {step.title}
                   </h4>
-                  <p className="text-[0.78rem] text-ddk-gray leading-relaxed max-w-[260px] lg:mx-auto">{step.desc}</p>
+                  <p className="text-[0.78rem] text-ddk-gray leading-relaxed max-w-[260px] lg:mx-auto">
+                    {step.desc}
+                  </p>
                 </div>
               </motion.div>
             ))}

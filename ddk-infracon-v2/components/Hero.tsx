@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
+import { unsplashUrl, IMG } from "@/lib/images";
 
 export function Hero() {
   return (
@@ -9,15 +11,17 @@ export function Hero() {
       id="hero"
       className="relative w-full flex items-center overflow-hidden"
       style={{ height: "100svh", minHeight: "560px" }}
+      aria-label="Hero section"
     >
-      {/* Background — Indian city high-rise skyline, browser-verified Unsplash ✅ */}
-      <div
-        className="absolute inset-0 w-full h-full"
-        style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1636810163038-5d8d8996c561?auto=format&fit=crop&w=1920&q=85')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center center",
-        }}
+      {/* Background — Next.js Image for LCP optimization, WebP/AVIF, blur placeholder */}
+      <Image
+        src={unsplashUrl(IMG.heroBackground, { w: 1920, q: 85 })}
+        alt="Bhubaneswar city skyline"
+        fill
+        priority
+        quality={85}
+        className="object-cover object-center"
+        sizes="100vw"
       />
 
       {/* Dark directional overlay */}
@@ -40,13 +44,12 @@ export function Hero() {
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-10 pt-20">
-        <div style={{ maxWidth: "680px" }}>
+        <div className="max-w-[680px]">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-mono uppercase mb-4"
-            style={{ fontSize: "0.65rem", letterSpacing: "0.2em", color: "#00AEEF" }}
+            className="font-mono uppercase mb-4 text-[0.65rem] tracking-[0.2em] text-ddk-blue"
           >
             India&apos;s Premier Builder · Bhubaneswar, Odisha
           </motion.p>
@@ -55,27 +58,22 @@ export function Hero() {
             initial={{ clipPath: "polygon(0 0, 0 0, 0 100%, 0 100%)" }}
             animate={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}
             transition={{ duration: 1, delay: 0.2, ease: [0.33, 1, 0.68, 1] }}
-            className="font-bebas text-white mb-4 md:mb-5"
-            style={{
-              fontSize: "clamp(3.5rem, 11vw, 9.5rem)",
-              lineHeight: 0.95,
-              letterSpacing: "0.03em",
-            }}
+            className="font-bebas text-white mb-4 md:mb-5 leading-[0.95] tracking-[0.03em]"
+            style={{ fontSize: "clamp(3.5rem, 11vw, 9.5rem)" }}
           >
-            BUILD <span style={{ color: "#00AEEF" }}>BOLD.</span>
+            BUILD <span className="text-ddk-blue">BOLD.</span>
             <br />
-            BUILD <span style={{ color: "#00AEEF" }}>RIGHT.</span>
+            BUILD <span className="text-ddk-blue">RIGHT.</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.45 }}
-            className="text-sm md:text-base lg:text-lg leading-relaxed mb-8 md:mb-10"
-            style={{ color: "rgba(255,255,255,0.78)", maxWidth: "520px" }}
+            className="text-sm md:text-base lg:text-lg leading-relaxed mb-8 md:mb-10 text-white/[0.78] max-w-[520px]"
           >
             Delivering world-class construction excellence.{" "}
-            <strong style={{ color: "#00AEEF", fontWeight: 700 }}>
+            <strong className="text-ddk-blue font-bold">
               120+ residential buildings
             </strong>{" "}
             delivered across Bhubaneswar — from luxury highrises to iconic
@@ -90,23 +88,13 @@ export function Hero() {
           >
             <Link
               href="#contact"
-              className="inline-flex items-center gap-2 font-bold uppercase py-3.5 px-6 md:py-4 md:px-8 rounded text-xs md:text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto justify-center"
-              style={{
-                background: "#00AEEF",
-                color: "#000",
-                letterSpacing: "0.08em",
-              }}
+              className="inline-flex items-center gap-2 font-bold uppercase py-3.5 px-6 md:py-4 md:px-8 rounded text-xs md:text-sm tracking-[0.08em] bg-ddk-blue text-black transition-all hover:-translate-y-0.5 w-full sm:w-auto justify-center"
             >
               Start Your Project →
             </Link>
             <Link
               href="#gallery"
-              className="inline-flex items-center gap-2 font-semibold uppercase py-3.5 px-6 md:py-4 md:px-8 rounded text-xs md:text-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto justify-center"
-              style={{
-                border: "1.5px solid rgba(255,255,255,0.35)",
-                color: "#fff",
-                letterSpacing: "0.08em",
-              }}
+              className="inline-flex items-center gap-2 font-semibold uppercase py-3.5 px-6 md:py-4 md:px-8 rounded text-xs md:text-sm tracking-[0.08em] border-[1.5px] border-white/35 text-white transition-all hover:-translate-y-0.5 w-full sm:w-auto justify-center"
             >
               View Our Work
             </Link>

@@ -1,51 +1,61 @@
 "use client";
 
+import { type ReactNode } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
+import { IMG, unsplashUrl } from "@/lib/images";
+import {
+  BuildingIcon,
+  HomeIcon,
+  SunIcon,
+  WrenchIcon,
+  BriefcaseIcon,
+  BlueprintIcon,
+} from "@/lib/icons";
 
-// ─── ONLY BROWSER-VERIFIED IMAGES ────────────────────────────────────────────
-const UN_APARTMENT   = "https://images.unsplash.com/photo-1663985139222-6af2f8646104?auto=format&fit=crop&w=800&q=80"; // Indian apartment high-rise ✅
-const UN_VILLA       = "https://images.unsplash.com/photo-1744311971549-9c529b60b98a?auto=format&fit=crop&w=800&q=80"; // Indian traditional-modern villa ✅
-const UN_RESIDENTIAL = "https://images.unsplash.com/photo-1674821770946-4f774b1907d7?auto=format&fit=crop&w=800&q=80"; // Indian residential society ✅
-const UN_SITE        = "https://images.unsplash.com/photo-1719993919800-630021837af9?auto=format&fit=crop&w=800&q=80"; // Indian construction site ✅
-const UN_HIGHRISE    = "https://images.unsplash.com/photo-1636810163038-5d8d8996c561?auto=format&fit=crop&w=800&q=80"; // Indian city skyline of high-rises ✅
-const TAJ_GARDENS    = "https://cdn.sanity.io/images/ocl5w36p/prod5/05eb36b15cd8e08a210cf312bc56f971c4ed50e9-3840x1860.jpg?w=800&auto=format&q=80"; // Real Taj Hotel Puri ✅
+interface ServiceItem {
+  title: string;
+  desc: string;
+  img: string;
+  icon: ReactNode;
+}
 
-const SERVICES_DATA = [
+const SERVICES_DATA: ServiceItem[] = [
   {
     title: "High-Rise Apartments",
     desc: "Premium multi-story residential complexes with modern amenities and smart infrastructure.",
-    img: UN_APARTMENT,
-    icon: <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1" /><line x1="3" y1="9" x2="21" y2="9" /><line x1="3" y1="15" x2="21" y2="15" /><line x1="9" y1="3" x2="9" y2="21" /></svg>,
+    img: unsplashUrl(IMG.apartment),
+    icon: <BuildingIcon />,
   },
   {
     title: "Luxury Villas",
     desc: "Bespoke independent homes designed for elegance, comfort, and privacy.",
-    img: UN_VILLA,
-    icon: <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg>,
+    img: unsplashUrl(IMG.villa),
+    icon: <HomeIcon />,
   },
   {
     title: "Smart Homes",
     desc: "Technologically integrated homes with automation, security, and energy efficiency.",
-    img: UN_RESIDENTIAL,
-    icon: <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" /><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" /></svg>,
+    img: unsplashUrl(IMG.residential),
+    icon: <SunIcon />,
   },
   {
     title: "Renovation & Redevelopment",
     desc: "Transform existing structures into modern spaces with expert remodeling solutions.",
-    img: UN_SITE,
-    icon: <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" /></svg>,
+    img: unsplashUrl(IMG.constructionSite),
+    icon: <WrenchIcon />,
   },
   {
     title: "Commercial Construction",
     desc: "Office complexes, retail spaces, and mixed-use developments built for business success.",
-    img: UN_HIGHRISE,
-    icon: <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="15" rx="1" /><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" /><line x1="12" y1="12" x2="12" y2="16" /><line x1="10" y1="14" x2="14" y2="14" /></svg>,
+    img: unsplashUrl(IMG.heroBackground),
+    icon: <BriefcaseIcon />,
   },
   {
     title: "Architectural Design",
     desc: "Innovative design services that blend aesthetics with functional engineering excellence.",
-    img: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80", // architect drawing on paper — verified ✅
-    icon: <svg viewBox="0 0 24 24"><line x1="2" y1="20" x2="22" y2="20" /><path d="M5 20V8l7-5 7 5v12" /><path d="M9 20v-5h6v5" /></svg>,
+    img: unsplashUrl(IMG.architectBlueprint),
+    icon: <BlueprintIcon />,
   },
 ];
 
@@ -72,7 +82,7 @@ export function Services() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
           {SERVICES_DATA.map((service, idx) => (
             <motion.div
-              key={idx}
+              key={service.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -80,12 +90,13 @@ export function Services() {
               className="group relative rounded-xl overflow-hidden cursor-pointer border border-white/5 hover:border-ddk-blue transition-all duration-500"
               style={{ height: "clamp(280px, 35vw, 360px)" }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={service.img}
                 alt={service.title}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                fill
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 loading="lazy"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
               <div
                 className="absolute inset-0 transition-all duration-500"
@@ -96,7 +107,7 @@ export function Services() {
                   {service.icon}
                 </div>
                 <h3 className="font-bold text-base md:text-lg mb-1.5 text-white">{service.title}</h3>
-                <p className="text-[0.78rem] md:text-[0.82rem] leading-relaxed" style={{ color: "rgba(255,255,255,0.70)" }}>
+                <p className="text-[0.78rem] md:text-[0.82rem] leading-relaxed text-white/70">
                   {service.desc}
                 </p>
                 <a

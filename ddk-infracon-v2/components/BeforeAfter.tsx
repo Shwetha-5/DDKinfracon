@@ -1,29 +1,31 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
+import { IMG, TAJ, unsplashUrl, tripAdvisorUrl } from "@/lib/images";
 
-// BEFORE: Construction workers on site with steel rebars — browser-verified ✅
-const BEFORE_IMG =
-  "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80";
-// AFTER: Taj Hotel Puri — verified aerial exterior drone shot from TripAdvisor CDN ✅
-// Shows full hotel complex, pools, gardens, Puri beach — confirmed exterior
-const AFTER_IMG =
-  "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2e/96/46/fe/taj-puri-resort-spa-offers.jpg?w=1200&h=-1&s=1";
+const BEFORE_IMG = unsplashUrl(IMG.steelRebars, { w: 1200 });
+const AFTER_IMG = tripAdvisorUrl(TAJ.exteriorAerial, { w: 1200 });
 
 export function BeforeAfter() {
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleMove = (clientX: number) => {
-    if (!isDragging || !containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
-    setSliderPosition(Math.max(0, Math.min((x / rect.width) * 100, 100)));
-  };
+  const handleMove = useCallback(
+    (clientX: number) => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
+      setSliderPosition(Math.max(0, Math.min((x / rect.width) * 100, 100)));
+    },
+    []
+  );
 
   useEffect(() => {
+    if (!isDragging) return;
+
     const onMouseMove = (e: MouseEvent) => handleMove(e.clientX);
     const onTouchMove = (e: TouchEvent) => {
       e.preventDefault();
@@ -31,20 +33,20 @@ export function BeforeAfter() {
     };
     const stop = () => setIsDragging(false);
 
-    if (isDragging) {
-      window.addEventListener("mousemove", onMouseMove);
-      window.addEventListener("mouseup", stop);
-      window.addEventListener("touchmove", onTouchMove, { passive: false });
-      window.addEventListener("touchend", stop);
-    }
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseup", stop);
+    window.addEventListener("touchmove", onTouchMove, { passive: false });
+    window.addEventListener("touchend", stop);
+
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseup", stop);
       window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("touchend", stop);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDragging]);
+  }, [isDragging, handleMove]);
+
+  const startDrag = useCallback(() => setIsDragging(true), []);
 
   return (
     <section className="py-16 md:py-28 bg-ddk-charcoal border-y border-white/5">
@@ -67,7 +69,7 @@ export function BeforeAfter() {
           </h2>
           <p className="text-ddk-gray mt-4 max-w-xl mx-auto text-sm md:text-base leading-relaxed">
             From laying steel rebars to a completed 5‑star luxury landmark —
-            see how DDK Infracon built the Taj Hotel Puri.
+            see how DDK Infracon built Taj Hotel Puri.
           </p>
         </motion.div>
 
@@ -77,18 +79,29 @@ export function BeforeAfter() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
           ref={containerRef}
-          onMouseDown={() => setIsDragging(true)}
-          onTouchStart={() => setIsDragging(true)}
+          onMouseDown={startDrag}
+          onTouchStart={startDrag}
           className="relative max-w-5xl mx-auto rounded-xl md:rounded-2xl overflow-hidden border-2 border-white/10 shadow-2xl select-none cursor-ew-resize"
           style={{ aspectRatio: "16/7" }}
+          role="slider"
+          aria-label="Before and after comparison slider"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={Math.round(sliderPosition)}
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "ArrowLeft") setSliderPosition((p) => Math.max(0, p - 2));
+            if (e.key === "ArrowRight") setSliderPosition((p) => Math.min(100, p + 2));
+          }}
         >
           {/* AFTER — completed Taj Hotel exterior */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={AFTER_IMG}
             alt="Taj Hotel Puri — Completed"
-            className="absolute inset-0 w-full h-full object-cover"
+            fill
+            className="object-cover"
             draggable={false}
+            sizes="(max-width: 1280px) 100vw, 1280px"
           />
           <div className="absolute top-3 right-3 md:top-4 md:right-4 bg-black/70 backdrop-blur-md text-white font-bold text-[0.6rem] md:text-xs tracking-widest px-3 py-1.5 md:px-4 md:py-2 rounded uppercase border border-white/10">
             After — Taj Hotel Puri
@@ -101,12 +114,13 @@ export function BeforeAfter() {
               clipPath: `polygon(0 0, ${sliderPosition}% 0, ${sliderPosition}% 100%, 0 100%)`,
             }}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src={BEFORE_IMG}
               alt="Taj Hotel Puri — Construction Phase"
-              className="absolute inset-0 w-full h-full object-cover"
+              fill
+              className="object-cover"
               draggable={false}
+              sizes="(max-width: 1280px) 100vw, 1280px"
             />
             <div className="absolute top-3 left-3 md:top-4 md:left-4 bg-black/70 backdrop-blur-md text-white font-bold text-[0.6rem] md:text-xs tracking-widest px-3 py-1.5 md:px-4 md:py-2 rounded uppercase border border-white/10">
               Before — Construction Site
