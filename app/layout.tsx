@@ -66,7 +66,7 @@ const STRUCTURED_DATA = JSON.stringify({
   email: "ddkinfraconpm@gmail.com",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Duplex-50, Shalaishree Vihar, C.S.pur",
+    streetAddress: "GA- 300, Ground Floor, Defense Colony, Shalaishree Vihar, C.S. Pur,",
     addressLocality: "Bhubaneswar",
     addressRegion: "Odisha",
     postalCode: "751021",
