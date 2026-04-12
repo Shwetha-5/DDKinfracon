@@ -62,7 +62,7 @@ const STRUCTURED_DATA = JSON.stringify({
   name: "DDK Infracon Pvt. Ltd.",
   description:
     "Premium Residential & Commercial Construction Company in Bhubaneswar, Odisha",
-  telephone: "+919337754555",
+  telephone: "+916370050334",
   email: "ddkinfraconpm@gmail.com",
   address: {
     "@type": "PostalAddress",
