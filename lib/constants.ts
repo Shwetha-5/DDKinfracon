@@ -5,11 +5,11 @@ export const SITE_CONFIG = {
     phone: [
       "+91 9337754555",
       "+91 9439006863",
-      "+91 9668228506",
+      "+91 6370050334",
       "+91 7625084250",
     ],
     email: ["ddkinfraconpm@gmail.com", "dkmohanty675@gmail.com"],
-    address: "Duplex-50, Shalaishree Vihar, C.S.pur, Bhubaneswar, Odisha 751021",
+    address: "GA- 300, Ground Floor, Defense Colony, Salaishree Vihar, C.S. Pur, Bhubaneswar, Odisha - 751021",
     whatsappLink: "https://wa.me/919337754555?text=Hi%20DDK%20Infracon%2C%20I%27m%20interested%20in%20a%20project%20consultation.",
   },
   rera: "RERA/PRM/OD/2024/005678",

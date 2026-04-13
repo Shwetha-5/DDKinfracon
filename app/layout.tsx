@@ -32,28 +32,30 @@ const bebasNeue = Bebas_Neue({
 // ─── METADATA ────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
-  title: "DDK Infracon | India's Premier Builder | Bhubaneswar, Odisha",
+  title: "DDK Infracon pvt ltd | India's Premier Builder | Bhubaneswar, Odisha",
   description:
-    "DDK Infracon Pvt. Ltd. — 120+ residential buildings delivered across Bhubaneswar. 10+ years. ISO Certified. RERA Approved. IGBC Gold Certified.",
+    "DDK Infracon Pvt. Ltd. — 120+ residential buildings delivered across India. 3+ years. ISO Certified. RERA Approved. IGBC Gold Certified.",
   metadataBase: new URL("https://ddkinfracon.com"),
+
   icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
-    shortcut: "/logo.png",
+    icon: "/icon.png",        // main favicon (for Google)
+    shortcut: "/icon.png",
+    apple: "/icon.png",
   },
+
   openGraph: {
     title: "DDK Infracon | India's Premier Builder",
     description:
       "120+ residential buildings delivered across Bhubaneswar. Premium construction excellence since 2014.",
     type: "website",
-    images: ["/logo.png"],
+    images: ["/logo.png"], // OK for social sharing
   },
+
   robots: {
     index: true,
     follow: true,
   },
 };
-
 // ─── STRUCTURED DATA (pre-stringified to avoid runtime JSON.stringify) ───────
 
 const STRUCTURED_DATA = JSON.stringify({
