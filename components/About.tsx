@@ -15,7 +15,7 @@ const VALUES = [
 const TEAM = [
   { name: "Dhiren Kumar Mohanty", role: "Owner/Founder" },
   { name: "Amar Kumar Mohanty", role: "Managing Director" }, // Assuming Director or similar if role was blank but listed with owners
-  { name: "Teju S", role: "Project Manager/Site Engineer" },
+  { name: "Teju S", role: "Senior Project Manager" },
 ] as const;
 
 export function About() {
